@@ -1,65 +1,53 @@
-# Proxmox Cybersecurity Home Lab
+## pfSense Firewall Configuration
 
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)  (Optional: Add a license badge)
+This section outlines the process of setting up pfSense as the central firewall for the home lab, enabling network segmentation and security.
 
-## Overview
+### 1. Proxmox Preparation
 
-Welcome to my home lab project! This environment is designed to provide a comprehensive sandbox for learning, testing, and experimenting with various cybersecurity tools and techniques. The core of the lab is hosted on **Proxmox VE**, a powerful open-source virtualization platform, which allows me to run multiple virtual machines (VMs) for different security purposes.
+*   **Download pfSense ISO:** Download the pfSense ISO image from the official pfSense website.
+*   **Upload to Proxmox:** Upload the ISO to the Proxmox storage.
+*   **Create Linux Bridge (Optional):** An additional Linux bridge can be created in Proxmox (e.g., `vmbr2`) if a separate LAN network is required for the lab. Ensure VLAN awareness is enabled for the bridge.
 
-### Objectives
+### 2. Create the pfSense Virtual Machine
 
-*   Learn and experiment with **network security** tools.
-*   Simulate and monitor **real-world cyber threats**.
-*   Host and configure **vulnerable machines** for penetration testing.
-*   Practice **incident detection** and **response** in a controlled environment.
+*   **Create VM:** In Proxmox, create a new virtual machine and select the uploaded pfSense ISO as the boot medium.
+*   **Configure Network:** Add network interfaces to the VM: one for WAN (connected to the internet or main network), and one or more for LAN (connected to the internal lab network(s)).
+*   **Install pfSense:** Start the VM and follow the pfSense installer.
 
-## Lab Components
+### 3. Basic pfSense Configuration
 
-This home lab includes several tools and technologies, each playing a key role in the overall security setup:
+*   **Interface Assignment:** During the initial setup, assign the network interfaces to the WAN and LAN roles.
+*   **LAN IP Address:** Configure a static IP address for the LAN interface (e.g., `10.10.1.254/24`).
+*   **Web Interface Access:** The pfSense web interface can be accessed using the LAN IP address.
+*   **Setup Wizard:** Run through the pfSense setup wizard to configure basic settings (hostname, DNS, etc.).
 
-*   **Proxmox VE:**  Virtualization platform hosting all VMs.
-*   **pfSense:** Open-source firewall and router for network segmentation and security.
-*   **Kali Linux:** Penetration testing operating system for offensive security assessments and vulnerability analysis.
-*   **Wazuh:** Host-based intrusion detection system (HIDS) for real-time monitoring, log analysis, and security event management.
-*   **Ubuntu with Docker & Portainer:** Containerized environments for managing applications and services, simplifying deployment and scaling.
-*   **Active Directory (Windows Server 2022, Windows 10 & 11):** Domain services for testing security policies, access control, and simulating enterprise network environments.
-*   **Nessus:** A widely-used vulnerability scanner for identifying security weaknesses, misconfigurations, and missing patches across systems and applications. Nessus helps to prioritize remediation efforts by providing detailed reports and risk scores.
-*   **Metasploitable 2 & DVWA (Damn Vulnerable Web Application):**  Intentionally vulnerable machines and web applications for ethical hacking practice and security testing.
-*   **Security Onion:** A free and open-source Linux distribution for threat hunting, enterprise security monitoring, and log management.
-*   **TheHive & Cortex:** Incident response platform for managing, investigating, and analyzing cyber threats, facilitating collaboration and automation.
+### 4. Network Segmentation with VLANs (Optional)
 
-## Network Diagram
+*   **Define VLANs:** In the pfSense web interface, create VLANs for different network segments (e.g., VLAN 10 for a vulnerable network, VLAN 20 for a secure network).
+*   **Assign VLANs to Interfaces:** Assign each VLAN to a virtual interface on the pfSense LAN.
+*   **Configure VLAN Interface Settings:** Configure a static IP address for each VLAN interface.
 
-Below is the high-level network topology for the home lab, showing how all components are interconnected and segmented into various subnets (e.g., vulnerable machines, Active Directory, etc.).
+### 5. Firewall Rules
 
-![Network Diagram](images/Network_Diagram.png)
+*   **Create Firewall Rules:** Create firewall rules to control traffic flow between the different network segments.
+*   **Default Deny:** Implement a default-deny policy, allowing only necessary traffic.
+*   **Specific Rules:** Create rules to allow specific traffic between VLANs, or to the internet (if needed).
 
-**Important:**  Make sure you have the `Network Diagram.png` file in the `images/` directory.  The `![Network Diagram](images/Network_Diagram.png)` syntax tells Markdown to display the image.
+### 6. DHCP Server
 
-## Key Features
+*   **Enable DHCP:** Enable the DHCP server on each LAN and VLAN interface to automatically assign IP addresses to VMs.
+*   **Configure DHCP Ranges:** Define IP address ranges for each DHCP server.
+*   **DNS Configuration:** Specify the DNS server(s) to be used by the DHCP clients.
 
-*   **Multi-Layer Security:** Segmented network with firewalls, IDS/IPS, and comprehensive logging to monitor for threats at various levels.
-*   **Vulnerability Testing:** A safe and controlled environment for practicing penetration testing techniques using tools like **Kali Linux** and exploiting vulnerabilities in **Metasploitable 2** and **DVWA**.
-*   **Threat Monitoring & Response:** Real-time alerts and proactive incident management using tools like **Wazuh**, **Security Onion**, and **TheHive**, enabling swift detection and response to potential security breaches.
-*   **Containerization:** Efficient service deployment and management using **Docker** on Ubuntu, simplified via the **Portainer** web interface.
-*   **Active Directory Emulation:** A realistic Active Directory environment for testing group policies, user access controls, and domain-based security attacks.
+**Important Considerations:**
 
----
+*   **Security:** Carefully plan the firewall rules to ensure that the lab environment is properly isolated and protected.
+*   **Documentation:** Refer to the official pfSense documentation for detailed configuration options.
+*   **VLAN Awareness:** When setting up the Linux Bridge in proxmox, ensure the *VLAN Aware* box is checked.
+*   **Default password**: Make sure to change the default `admin` password.
 
-## Next Steps
+**Detailed Configuration:**
 
-In the following sections, I will provide step-by-step instructions on how to replicate this home lab setup. This includes details on hardware requirements, software installation guides for each tool, networking configurations, and troubleshooting tips.  I'll also document common attack scenarios and defense strategies.
-
-Feel free to explore, fork, and contribute to this project!  Your feedback and suggestions are highly welcome.
-
----
-
-### Author
-
-**Mahmud Mamme**
-
-I am a cybersecurity enthusiast passionate about technology, security, and continuous learning. This home lab is an ongoing project that evolves as I explore new tools and security concepts.
-
-For any inquiries or suggestions, feel free to reach out via [LinkedIn](https://www.linkedin.com/in/mahmudmamme/) or open an issue here on GitHub.  I'm always happy to collaborate and share knowledge.
+A detailed step-by-step guide with screenshots can be found in [configurations/pfsense_setup.md](configurations/pfsense_setup.md).
 
 ---
