@@ -1,6 +1,6 @@
 ## Kali Linux VM Configuration (Overview)
 
-This section provides an overview of the steps required to set up a Kali Linux VM in your Proxmox environment.  For detailed instructions, see [configurations/kali-linux-setup.md](configurations/kali-linux-setup.md).
+This section provides an overview of the steps required to set up a Kali Linux VM in your Proxmox environment.
 
 ### 1. Prepare Proxmox
 
