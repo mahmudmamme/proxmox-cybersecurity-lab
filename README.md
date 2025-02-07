@@ -30,11 +30,10 @@ This home lab includes several tools and technologies, each playing a key role i
 
 ## Network Diagram
 
-Below is the high-level network topology for the home lab, showing how all components are interconnected and segmented into various subnets (e.g., vulnerable machines, Active Directory, etc.).
+Below is the high-level network topology for the home lab, showing how all components are interconnected and segmented into various subnets. 
 
-![Network Diagram](images/Network_Diagram.png)
+![Network Diagram](https://github.com/mamme206/proxmox-cybersecurity-lab/blob/main/Image/Network%20Diagram.png)
 
-**Important:**  Make sure you have the `Network Diagram.png` file in the `images/` directory.  The `![Network Diagram](images/Network_Diagram.png)` syntax tells Markdown to display the image.
 
 ## Key Features
 
