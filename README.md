@@ -44,7 +44,21 @@ Below is the high-level network topology for the home lab, showing how all compo
 *   **Active Directory Emulation:** A realistic Active Directory environment for testing group policies, user access controls, and domain-based security attacks.
 
 ---
+## Table of Contents - Step-by-Step Guides
 
+| Component          | Description                                              | Guide                                                                    |
+| ------------------ | -------------------------------------------------------- | ------------------------------------------------------------------------ |
+| Proxmox Base Setup     | Guide for preparing Proxmox for the HomeLab          | [Proxmox Base Setup](configurations/Proxmox-Base-Setup.md)            |
+| pfSense            | Configure pfSense for Network segmentation and firewall | [pfSense Configuration](configurations/pfsense-configuration.md)         |
+| Kali Linux         | Setting up Kali Linux VM for Penetration testing        | [Kali Linux Setup](configurations/kali-linux-setup.md)                   |
+| Wazuh              | Installing and configuring Wazuh HIDS                  | [Wazuh Installation](configurations/wazuh-installation.md)             |
+| Ubuntu with Docker | Set up a containerized environment for application services | [Ubuntu Docker Setup](configurations/ubuntu-docker-setup.md)           |
+| Windows AD         | Installing and configuring Active Directory services  | [Windows AD Setup](configurations/windows-ad-setup.md)              |
+| Nessus             | Vulnerability scanning setup                          | [Nessus Setup](configurations/nessus-setup.md)                         |
+| Security Onion     | Setting up network security monitoring                   | [Security Onion Setup](configurations/security-onion-setup.md)         |
+| TheHive & Cortex   | Incident response platform setup                      | [TheHive-Cortex Setup](configurations/thehive-cortex-setup.md)       |
+
+---
 ## Next Steps
 
 In the following sections, I will provide step-by-step instructions on how to replicate this home lab setup. This includes details on hardware requirements, software installation guides for each tool, networking configurations, and troubleshooting tips.  I'll also document common attack scenarios and defense strategies.
