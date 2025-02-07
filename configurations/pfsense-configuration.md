@@ -46,8 +46,4 @@ This section outlines the process of setting up pfSense as the central firewall 
 *   **VLAN Awareness:** When setting up the Linux Bridge in proxmox, ensure the *VLAN Aware* box is checked.
 *   **Default password**: Make sure to change the default `admin` password.
 
-**Detailed Configuration:**
-
-A detailed step-by-step guide with screenshots can be found in [configurations/pfsense_setup.md](configurations/pfsense_setup.md).
-
 ---
