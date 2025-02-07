@@ -1,49 +1,46 @@
-## Kali Linux VM Configuration (Overview)
+# Kali Linux VM Configuration (Overview)
 
-This section provides an overview of the steps required to set up a Kali Linux VM. 
+This guide provides an overview of the steps required to set up a Kali Linux VM in the Proxmox environment. 
 
-### 1. Prepare Proxmox
+### 1. Proxmox Preparation
 
-*   Download the Kali Linux ISO image.
-*   Upload the ISO to your Proxmox storage.
+*   Download the Kali Linux ISO.
+*   Upload the ISO to Proxmox storage.
 
-### 2. Create the VM
+### 2. VM Creation
 
-*   Create a new VM in Proxmox, specifying the following:
-    *   VM ID and Name
+*   Create a new VM in Proxmox, specifying:
+    *   VM ID and Name (e.g., `prod-kali`, VM ID `202`)
     *   Kali Linux ISO as the boot medium
     *   Sufficient disk space (e.g., 120 GB)
     *   Adequate RAM (e.g., 8 GB)
-    *   Network connection to your lab network (`vmbr2` or similar).
+    *   Network connection to the lab network (e.g., `vmbr2`).
 
-### 3. Install Kali Linux
+### 3. Kali Linux Installation
 
-*   Start the VM and boot from the ISO image.
-*   Follow the Kali Linux installer prompts to install the operating system.
-*   Create a user account and set a strong password.
+*   Start the VM and boot from the ISO.
+*   Follow the Kali Linux installer prompts.
+*   Set up a user account and password.
 
 ### 4. Post-Installation
 
 *   Update the system: `sudo apt update && sudo apt upgrade -y`
-*   Install any additional tools required for your security tasks.
 
 ### 5. Network Verification
 
-*   Verify that the VM receives an IP address from the pfSense DHCP server in your lab network.
+*   Verify the VM receives an IP address from the DHCP server.
 *   Test network connectivity by pinging the pfSense LAN IP address.
 
-### 6. Optional Enhancements
+### 6. Optional Configuration
 
-*   Configure SSH access for remote management.
-*   Install the QEMU Guest Agent for improved performance.
+*   Configure SSH access (if desired): `sudo apt install openssh-server -y`
+*   Install QEMU Guest Agent for improved performance: `sudo apt install qemu-guest-agent -y`
 
-### 7. Network Segmentation (if using VLANs)
+### 7. VLAN Configuration (if applicable)
 
-*   Configure VLANs in pfSense (if desired) to segment your network.
-*   Create firewall rules to control traffic flow between VLANs.
-*   Configure DHCP servers for each VLAN.
+*   Configure VLANs, firewall rules, and DHCP server settings in pfSense, as needed.
 
-**Important Notes:**
+**Key Considerations:**
 
-*   Ensure that your pfSense firewall is properly configured to protect your lab environment.
-*   Keep your Kali Linux VM updated with the latest security patches.
+*   Ensure the Proxmox firewall allows necessary traffic to and from the Kali Linux VM.
+*   Keep the Kali Linux VM updated with the latest security patches.
