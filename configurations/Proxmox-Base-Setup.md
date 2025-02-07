@@ -1,65 +1,112 @@
-# Proxmox Cybersecurity Home Lab
+# Proxmox Base Setup: Hardware and Software Requirements
 
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)  (Optional: Add a license badge)
+This guide outlines the hardware and software required to establish a foundation for a cybersecurity home lab using Proxmox Virtual Environment (VE).
 
-## Overview
+## 1. Hardware Requirements
 
-Welcome to my home lab project! This environment is designed to provide a comprehensive sandbox for learning, testing, and experimenting with various cybersecurity tools and techniques. The core of the lab is hosted on **Proxmox VE**, a powerful open-source virtualization platform, which allows me to run multiple virtual machines (VMs) for different security purposes.
+The following hardware setup is recommended to provide sufficient resources for running multiple virtual machines (VMs) and services concurrently:
 
-### Objectives
+*   **Host Machine:** Dell Optiplex 7050 Mini PC (Example)
 
-*   Learn and experiment with **network security** tools.
-*   Simulate and monitor **real-world cyber threats**.
-*   Host and configure **vulnerable machines** for penetration testing.
-*   Practice **incident detection** and **response** in a controlled environment.
+    *   **CPU:** Intel Core i5-7500T (Quad-Core, 2.70 GHz) - *Minimum Requirement*
+    *   **RAM:** 32GB DDR4 (expandable as needed) - *Recommended, 16GB minimum*
+    *   **Storage:** 1TB SSD (Proxmox installed with additional storage for VMs) - *SSD highly recommended for performance*
+    *   **Network:** Built-in Ethernet port + USB Wi-Fi Adapter (for network segmentation and internet access, if desired)
+    *   **Power Supply:** 130W external power adapter (or suitable for the chosen hardware)
 
-## Lab Components
+    *Note:* This setup allows for a robust environment, providing ample CPU and memory resources for hosting VMs without significant performance degradation.
 
-This home lab includes several tools and technologies, each playing a key role in the overall security setup:
+*   **Optional Hardware Upgrades:**
 
-*   **Proxmox VE:**  Virtualization platform hosting all VMs.
-*   **pfSense:** Open-source firewall and router for network segmentation and security.
-*   **Kali Linux:** Penetration testing operating system for offensive security assessments and vulnerability analysis.
-*   **Wazuh:** Host-based intrusion detection system (HIDS) for real-time monitoring, log analysis, and security event management.
-*   **Ubuntu with Docker & Portainer:** Containerized environments for managing applications and services, simplifying deployment and scaling.
-*   **Active Directory (Windows Server 2022, Windows 10 & 11):** Domain services for testing security policies, access control, and simulating enterprise network environments.
-*   **Nessus:** A widely-used vulnerability scanner for identifying security weaknesses, misconfigurations, and missing patches across systems and applications. Nessus helps to prioritize remediation efforts by providing detailed reports and risk scores.
-*   **Metasploitable 2 & DVWA (Damn Vulnerable Web Application):**  Intentionally vulnerable machines and web applications for ethical hacking practice and security testing.
-*   **Security Onion:** A free and open-source Linux distribution for threat hunting, enterprise security monitoring, and log management.
-*   **TheHive & Cortex:** Incident response platform for managing, investigating, and analyzing cyber threats, facilitating collaboration and automation.
+    *   Higher-end processor (for increased VM density and performance).
+    *   Additional RAM (for resource-intensive VMs or large-scale security monitoring).
+    *   Additional SSD or NVMe storage (for increased VM storage capacity and I/O performance).
 
-## Network Diagram
+## 2. Software Requirements
 
-Below is the high-level network topology for the home lab, showing how all components are interconnected and segmented into various subnets (e.g., vulnerable machines, Active Directory, etc.).
+The following software components are required to run this home lab:
 
-![Network Diagram](images/Network_Diagram.png)
+### 2.1 Host Software
 
-**Important:**  Make sure you have the `Network Diagram.png` file in the `images/` directory.  The `![Network Diagram](images/Network_Diagram.png)` syntax tells Markdown to display the image.
+*   **Proxmox Virtual Environment (VE):**
 
-## Key Features
+    *   A free and open-source virtualization platform based on Debian Linux, used to manage and host all virtual machines.
+    *   **Download Link:** [Proxmox VE](https://www.proxmox.com/en/proxmox-ve)
+    *   *Note:* Follow the official Proxmox VE installation guide to install Proxmox on the host machine.
 
-*   **Multi-Layer Security:** Segmented network with firewalls, IDS/IPS, and comprehensive logging to monitor for threats at various levels.
-*   **Vulnerability Testing:** A safe and controlled environment for practicing penetration testing techniques using tools like **Kali Linux** and exploiting vulnerabilities in **Metasploitable 2** and **DVWA**.
-*   **Threat Monitoring & Response:** Real-time alerts and proactive incident management using tools like **Wazuh**, **Security Onion**, and **TheHive**, enabling swift detection and response to potential security breaches.
-*   **Containerization:** Efficient service deployment and management using **Docker** on Ubuntu, simplified via the **Portainer** web interface.
-*   **Active Directory Emulation:** A realistic Active Directory environment for testing group policies, user access controls, and domain-based security attacks.
+### 2.2 Virtual Machines and Services: ISOs and Links
+
+The following virtual machines and services will be installed on Proxmox VE. Download the necessary ISOs or installation packages:
+
+1.  **pfSense:**
+
+    *   A free and open-source firewall/router to manage network traffic and segmentation within the lab.
+    *   **Download Link:** [pfSense](https://www.pfsense.org/download/)
+
+2.  **Kali Linux:**
+
+    *   A Debian-based distribution used for penetration testing, ethical hacking, and security auditing.
+    *   **Download Link:** [Kali Linux](https://www.kali.org/get-kali/)
+
+3.  **Wazuh:**
+
+    *   A free, open-source security platform that provides real-time threat detection, response, and compliance monitoring.
+    *   **Download Link:** [Wazuh](https://wazuh.com/)
+        *Note: This download leads to a landing page rather than the direct iso, further configuration will be needed.*
+
+4.  **Security Onion:**
+
+    *   A free and open-source platform for network security monitoring, intrusion detection, and log management.
+    *   **Download Link:** [Security Onion](https://securityonion.net/)
+
+5.  **TheHive & Cortex:**
+
+    *   Open-source incident response platforms that help track, analyze, and respond to cyber threats. *Note: A ubuntu server will be required to run the server.*
+    *   **Download Link:** [TheHive](https://thehive-project.org/) & [Cortex](https://thehive-project.org/)
+        *Note: These downloads lead to a project page rather than the direct iso, further configuration will be needed.*
+
+6.  **Metasploitable 2 & DVWA (Damn Vulnerable Web Application):**
+
+    *   Vulnerable machines used for practicing penetration testing and exploitation techniques.
+    *   **Download Link (Metasploitable 2):** [Metasploitable 2](https://sourceforge.net/projects/metasploitable/files/Metasploitable2/)
+    *   **Download Link (DVWA):** [DVWA GitHub](https://github.com/digininja/DVWA) *Note: This download leads to a github page rather than the direct file download. further configuration will be needed.*
+
+7.  **Windows Server 2022:**
+
+    *   A VM running Active Directory to simulate a real-world domain environment with user accounts, policies, and domain controllers. *Note: A license is required, without the license the system will only be functional for 180 days.*
+    *   **Download Link:** [Windows Server Evaluation](https://www.microsoft.com/en-us/evalcenter/evaluate-windows-server)
+
+8.  **Ubuntu with Docker & Portainer:**
+
+    *   **Ubuntu:** A Linux-based distribution used for running services such as Docker.
+    *   **Docker:** An open-source platform to automate application deployment in containers.
+    *   **Portainer:** A simple management UI for Docker, running in a lightweight container.
+    *   **Download Links:**
+        *   [Ubuntu](https://ubuntu.com/download/server)
+        *   [Docker](https://docs.docker.com/get-docker/)
+        *   [Portainer](https://www.portainer.io/installation)
+            *Note: The linked Portainer page contains instructions, rather than a direct link to the file.*
+
+## 3. Proxmox VE Installation
+
+1.  **Download the Proxmox VE ISO:** Use the link in section *2.1 Host Software*.
+2.  **Create Bootable Media:** Use a tool like Rufus ([https://rufus.ie/en/](https://rufus.ie/en/)) to create a bootable USB drive from the Proxmox VE ISO.
+3.  **Boot from USB:** Insert the USB drive into the host machine and boot from it.
+    *   The BIOS/UEFI settings may need to be adjusted to prioritize booting from USB.
+4.  **Follow the On-Screen Prompts:** The Proxmox VE installer will guide the install process, including disk partitioning and network configuration.
+
+*Note:* During the installation, a static IP address is recommended.
+
+## 4. Post-Installation Tasks
+
+1.  **Access the Proxmox Web Interface:** After the installation completes, access the Proxmox web interface through a web browser using the IP address assigned during installation (e.g., `https://your_proxmox_ip:8006`).
+2.  **Upload ISO Images:** Upload the ISO images downloaded in *Section 2.2 Virtual Machines and Services* to a Proxmox storage repository (e.g., `local`).
+3.  **Configure Storage:** Configure additional storage if desired, such as adding an external hard drive or network storage.
 
 ---
 
-## Next Steps
-
-In the following sections, I will provide step-by-step instructions on how to replicate this home lab setup. This includes details on hardware requirements, software installation guides for each tool, networking configurations, and troubleshooting tips.  I'll also document common attack scenarios and defense strategies.
-
-Feel free to explore, fork, and contribute to this project!  Your feedback and suggestions are highly welcome.
+These hardware and software components form the foundation of the home lab, enabling the creation of a secure, isolated environment for learning, testing, and experimentation. Ensure the hardware is capable of supporting the virtual machines listed above to avoid performance issues. Follow the linked guides for each software for set up.
 
 ---
-
-### Author
-
-**Mahmud Mamme**
-
-I am a cybersecurity enthusiast passionate about technology, security, and continuous learning. This home lab is an ongoing project that evolves as I explore new tools and security concepts.
-
-For any inquiries or suggestions, feel free to reach out via [LinkedIn](https://www.linkedin.com/in/mahmudmamme/) or open an issue here on GitHub.  I'm always happy to collaborate and share knowledge.
-
----
+*Note*
+Please keep in mind each ISO may differ on version. The installation might be different than described.
