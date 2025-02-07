@@ -45,6 +45,5 @@ This section provides an overview of the steps required to set up a Kali Linux V
 
 **Important Notes:**
 
-*   Refer to the detailed guide ([configurations/kali-linux-setup.md](configurations/kali-linux-setup.md)) for specific configuration values and troubleshooting tips.
 *   Ensure that your pfSense firewall is properly configured to protect your lab environment.
 *   Keep your Kali Linux VM updated with the latest security patches.
