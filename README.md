@@ -63,8 +63,6 @@ Below is the high-level network topology for the home lab, showing how all compo
 
 In the following sections, I will provide step-by-step instructions on how to replicate this home lab setup. This includes details on hardware requirements, software installation guides for each tool, networking configurations, and troubleshooting tips.  I'll also document common attack scenarios and defense strategies.
 
-Feel free to explore, fork, and contribute to this project!  Your feedback and suggestions are highly welcome.
-
 ---
 
 ### Author
@@ -73,6 +71,6 @@ Feel free to explore, fork, and contribute to this project!  Your feedback and s
 
 I am a cybersecurity enthusiast passionate about technology, security, and continuous learning. This home lab is an ongoing project that evolves as I explore new tools and security concepts.
 
-For any inquiries or suggestions, feel free to reach out via [LinkedIn](https://www.linkedin.com/in/mahmudmamme/) or open an issue here on GitHub.  I'm always happy to collaborate and share knowledge.
+For any inquiries or suggestions, feel free to reach out via [LinkedIn](https://www.linkedin.com/in/mahmudmamme/)  I'm always happy to connect.
 
 ---

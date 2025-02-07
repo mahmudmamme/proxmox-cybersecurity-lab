@@ -1,65 +1,42 @@
-# Proxmox Cybersecurity Home Lab
+# Ubuntu Server VM Configuration for Docker and Portainer (Overview)
 
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)  (Optional: Add a license badge)
+This guide provides an overview of the steps required to set up an Ubuntu Server VM in Proxmox for running Docker and Portainer. 
 
-## Overview
+## 1. Proxmox VM Setup
 
-Welcome to my home lab project! This environment is designed to provide a comprehensive sandbox for learning, testing, and experimenting with various cybersecurity tools and techniques. The core of the lab is hosted on **Proxmox VE**, a powerful open-source virtualization platform, which allows me to run multiple virtual machines (VMs) for different security purposes.
+*   Create a new Ubuntu Server VM in Proxmox, specifying:
+    *   VM ID and Name (e.g., `prod-docker`, VM ID `203`)
+    *   Ubuntu Server ISO as the boot medium
+    *   Sufficient disk space (e.g., 160 GB)
+    *   Adequate RAM (e.g., 16 GB)
+    *   Network connection to the lab network (e.g., `vmbr2` with VLAN 30, if applicable)
 
-### Objectives
+## 2. Ubuntu Server Installation
 
-*   Learn and experiment with **network security** tools.
-*   Simulate and monitor **real-world cyber threats**.
-*   Host and configure **vulnerable machines** for penetration testing.
-*   Practice **incident detection** and **response** in a controlled environment.
+*   Start the VM and follow the Ubuntu Server installer.
+*   Enable OpenSSH Server during installation for remote access.
+*   Verify the VM receives an IP address from the DHCP server.
 
-## Lab Components
+## 3. Docker Installation
 
-This home lab includes several tools and technologies, each playing a key role in the overall security setup:
+*   Install Docker using the official Docker installation guide for Ubuntu: [https://docs.docker.com/engine/install/ubuntu/](https://docs.docker.com/engine/install/ubuntu/)
+*   Ensure the Docker service is running and enabled after installation: `sudo systemctl start docker` and `sudo systemctl enable docker`.
 
-*   **Proxmox VE:**  Virtualization platform hosting all VMs.
-*   **pfSense:** Open-source firewall and router for network segmentation and security.
-*   **Kali Linux:** Penetration testing operating system for offensive security assessments and vulnerability analysis.
-*   **Wazuh:** Host-based intrusion detection system (HIDS) for real-time monitoring, log analysis, and security event management.
-*   **Ubuntu with Docker & Portainer:** Containerized environments for managing applications and services, simplifying deployment and scaling.
-*   **Active Directory (Windows Server 2022, Windows 10 & 11):** Domain services for testing security policies, access control, and simulating enterprise network environments.
-*   **Nessus:** A widely-used vulnerability scanner for identifying security weaknesses, misconfigurations, and missing patches across systems and applications. Nessus helps to prioritize remediation efforts by providing detailed reports and risk scores.
-*   **Metasploitable 2 & DVWA (Damn Vulnerable Web Application):**  Intentionally vulnerable machines and web applications for ethical hacking practice and security testing.
-*   **Security Onion:** A free and open-source Linux distribution for threat hunting, enterprise security monitoring, and log management.
-*   **TheHive & Cortex:** Incident response platform for managing, investigating, and analyzing cyber threats, facilitating collaboration and automation.
+## 4. Portainer Installation
 
-## Network Diagram
+*   Create a Docker volume for Portainer data: `sudo docker volume create portainer_data`
+*   Deploy the Portainer container using the following command:
 
-Below is the high-level network topology for the home lab, showing how all components are interconnected and segmented into various subnets (e.g., vulnerable machines, Active Directory, etc.).
+    ```bash
+    sudo docker run -d -p 8000:8000 -p 9443:9443 --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:2.21.5
+    ```
 
-![Network Diagram](images/Network_Diagram.png)
+## 5. Access Portainer
 
-**Important:**  Make sure you have the `Network Diagram.png` file in the `images/` directory.  The `![Network Diagram](images/Network_Diagram.png)` syntax tells Markdown to display the image.
+*   Access the Portainer web UI at `http://<UbuntuServerIP>:9000` or `https://<UbuntuServerIP>:9443`.
+*   Create an admin user and connect to the local Docker environment.
 
-## Key Features
+**Key Considerations:**
 
-*   **Multi-Layer Security:** Segmented network with firewalls, IDS/IPS, and comprehensive logging to monitor for threats at various levels.
-*   **Vulnerability Testing:** A safe and controlled environment for practicing penetration testing techniques using tools like **Kali Linux** and exploiting vulnerabilities in **Metasploitable 2** and **DVWA**.
-*   **Threat Monitoring & Response:** Real-time alerts and proactive incident management using tools like **Wazuh**, **Security Onion**, and **TheHive**, enabling swift detection and response to potential security breaches.
-*   **Containerization:** Efficient service deployment and management using **Docker** on Ubuntu, simplified via the **Portainer** web interface.
-*   **Active Directory Emulation:** A realistic Active Directory environment for testing group policies, user access controls, and domain-based security attacks.
-
----
-
-## Next Steps
-
-In the following sections, I will provide step-by-step instructions on how to replicate this home lab setup. This includes details on hardware requirements, software installation guides for each tool, networking configurations, and troubleshooting tips.  I'll also document common attack scenarios and defense strategies.
-
-Feel free to explore, fork, and contribute to this project!  Your feedback and suggestions are highly welcome.
-
----
-
-### Author
-
-**Mahmud Mamme**
-
-I am a cybersecurity enthusiast passionate about technology, security, and continuous learning. This home lab is an ongoing project that evolves as I explore new tools and security concepts.
-
-For any inquiries or suggestions, feel free to reach out via [LinkedIn](https://www.linkedin.com/in/mahmudmamme/) or open an issue here on GitHub.  I'm always happy to collaborate and share knowledge.
-
----
+*   The firewall must be configured to allow access to Portainer on ports 9000 and 9443 (if needed).
+*   Docker and Portainer should be kept updated with the latest security patches.
