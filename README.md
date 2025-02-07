@@ -51,11 +51,14 @@ Below is the high-level network topology for the home lab, showing how all compo
 | Proxmox Base Setup     | Guide for preparing Proxmox for the HomeLab          | [Proxmox Base Setup](configurations/Proxmox-Base-Setup.md)            |
 | pfSense            | Configure pfSense for Network segmentation and firewall | [pfSense Configuration](configurations/pfsense-configuration.md)         |
 | Kali Linux         | Setting up Kali Linux VM for Penetration testing        | [Kali Linux Setup](configurations/kali-linux-setup.md)                   |
-| Wazuh              | Installing and configuring Wazuh HIDS                  | [Wazuh Installation](configurations/wazuh-installation.md)             |
+| Wazuh              | Installing and configuring Wazuh HIDS, SEIM             | [Wazuh Installation](configurations/wazuh-installation.md)             |
+| Wazuh Agent (Ubuntu)  | Deploying the Wazuh agent on Ubuntu-based systems   | [Wazuh-Agent-Ubuntu Setup](configurations/wazuh-agent-ubuntu-setup.md)   |
 | Ubuntu with Docker | Set up a containerized environment for application services | [Ubuntu Docker Setup](configurations/ubuntu-docker-setup.md)           |
+| Metasploitable 2 & DVWA | Setting up the vulnerable targets for ethical hacking  | [Metasploitable-DVWA Setup](configurations/metasploitable-dvwa-setup.md) |
 | Windows AD         | Installing and configuring Active Directory services  | [Windows AD Setup](configurations/windows-ad-setup.md)              |
+| Wazuh Agent (Windows) | Deploying the Wazuh agent on Windows-based systems | [Wazuh-Agent-Windows Setup](configurations/wazuh-agent-windows-setup.md) |
 | Nessus             | Vulnerability scanning setup                          | [Nessus Setup](configurations/nessus-setup.md)                         |
-| Security Onion     | Setting up network security monitoring                   | [Security Onion Setup](configurations/security-onion-setup.md)         |
+| Security Onion     | Setting up network security monitoring                | [Security Onion Setup](configurations/security-onion-setup.md)         |
 | TheHive & Cortex   | Incident response platform setup                      | [TheHive-Cortex Setup](configurations/thehive-cortex-setup.md)       |
 
 ---
