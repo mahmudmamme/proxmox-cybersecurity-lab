@@ -1,65 +1,50 @@
-# Proxmox Cybersecurity Home Lab
+## Kali Linux VM Configuration (Overview)
 
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)  (Optional: Add a license badge)
+This section provides an overview of the steps required to set up a Kali Linux VM in your Proxmox environment.  For detailed instructions, see [configurations/kali-linux-setup.md](configurations/kali-linux-setup.md).
 
-## Overview
+### 1. Prepare Proxmox
 
-Welcome to my home lab project! This environment is designed to provide a comprehensive sandbox for learning, testing, and experimenting with various cybersecurity tools and techniques. The core of the lab is hosted on **Proxmox VE**, a powerful open-source virtualization platform, which allows me to run multiple virtual machines (VMs) for different security purposes.
+*   Download the Kali Linux ISO image.
+*   Upload the ISO to your Proxmox storage.
 
-### Objectives
+### 2. Create the VM
 
-*   Learn and experiment with **network security** tools.
-*   Simulate and monitor **real-world cyber threats**.
-*   Host and configure **vulnerable machines** for penetration testing.
-*   Practice **incident detection** and **response** in a controlled environment.
+*   Create a new VM in Proxmox, specifying the following:
+    *   VM ID and Name
+    *   Kali Linux ISO as the boot medium
+    *   Sufficient disk space (e.g., 120 GB)
+    *   Adequate RAM (e.g., 8 GB)
+    *   Network connection to your lab network (`vmbr2` or similar).
 
-## Lab Components
+### 3. Install Kali Linux
 
-This home lab includes several tools and technologies, each playing a key role in the overall security setup:
+*   Start the VM and boot from the ISO image.
+*   Follow the Kali Linux installer prompts to install the operating system.
+*   Create a user account and set a strong password.
 
-*   **Proxmox VE:**  Virtualization platform hosting all VMs.
-*   **pfSense:** Open-source firewall and router for network segmentation and security.
-*   **Kali Linux:** Penetration testing operating system for offensive security assessments and vulnerability analysis.
-*   **Wazuh:** Host-based intrusion detection system (HIDS) for real-time monitoring, log analysis, and security event management.
-*   **Ubuntu with Docker & Portainer:** Containerized environments for managing applications and services, simplifying deployment and scaling.
-*   **Active Directory (Windows Server 2022, Windows 10 & 11):** Domain services for testing security policies, access control, and simulating enterprise network environments.
-*   **Nessus:** A widely-used vulnerability scanner for identifying security weaknesses, misconfigurations, and missing patches across systems and applications. Nessus helps to prioritize remediation efforts by providing detailed reports and risk scores.
-*   **Metasploitable 2 & DVWA (Damn Vulnerable Web Application):**  Intentionally vulnerable machines and web applications for ethical hacking practice and security testing.
-*   **Security Onion:** A free and open-source Linux distribution for threat hunting, enterprise security monitoring, and log management.
-*   **TheHive & Cortex:** Incident response platform for managing, investigating, and analyzing cyber threats, facilitating collaboration and automation.
+### 4. Post-Installation
 
-## Network Diagram
+*   Update the system: `sudo apt update && sudo apt upgrade -y`
+*   Install any additional tools required for your security tasks.
 
-Below is the high-level network topology for the home lab, showing how all components are interconnected and segmented into various subnets (e.g., vulnerable machines, Active Directory, etc.).
+### 5. Network Verification
 
-![Network Diagram](images/Network_Diagram.png)
+*   Verify that the VM receives an IP address from the pfSense DHCP server in your lab network.
+*   Test network connectivity by pinging the pfSense LAN IP address.
 
-**Important:**  Make sure you have the `Network Diagram.png` file in the `images/` directory.  The `![Network Diagram](images/Network_Diagram.png)` syntax tells Markdown to display the image.
+### 6. Optional Enhancements
 
-## Key Features
+*   Configure SSH access for remote management.
+*   Install the QEMU Guest Agent for improved performance.
 
-*   **Multi-Layer Security:** Segmented network with firewalls, IDS/IPS, and comprehensive logging to monitor for threats at various levels.
-*   **Vulnerability Testing:** A safe and controlled environment for practicing penetration testing techniques using tools like **Kali Linux** and exploiting vulnerabilities in **Metasploitable 2** and **DVWA**.
-*   **Threat Monitoring & Response:** Real-time alerts and proactive incident management using tools like **Wazuh**, **Security Onion**, and **TheHive**, enabling swift detection and response to potential security breaches.
-*   **Containerization:** Efficient service deployment and management using **Docker** on Ubuntu, simplified via the **Portainer** web interface.
-*   **Active Directory Emulation:** A realistic Active Directory environment for testing group policies, user access controls, and domain-based security attacks.
+### 7. Network Segmentation (if using VLANs)
 
----
+*   Configure VLANs in pfSense (if desired) to segment your network.
+*   Create firewall rules to control traffic flow between VLANs.
+*   Configure DHCP servers for each VLAN.
 
-## Next Steps
+**Important Notes:**
 
-In the following sections, I will provide step-by-step instructions on how to replicate this home lab setup. This includes details on hardware requirements, software installation guides for each tool, networking configurations, and troubleshooting tips.  I'll also document common attack scenarios and defense strategies.
-
-Feel free to explore, fork, and contribute to this project!  Your feedback and suggestions are highly welcome.
-
----
-
-### Author
-
-**Mahmud Mamme**
-
-I am a cybersecurity enthusiast passionate about technology, security, and continuous learning. This home lab is an ongoing project that evolves as I explore new tools and security concepts.
-
-For any inquiries or suggestions, feel free to reach out via [LinkedIn](https://www.linkedin.com/in/mahmudmamme/) or open an issue here on GitHub.  I'm always happy to collaborate and share knowledge.
-
----
+*   Refer to the detailed guide ([configurations/kali-linux-setup.md](configurations/kali-linux-setup.md)) for specific configuration values and troubleshooting tips.
+*   Ensure that your pfSense firewall is properly configured to protect your lab environment.
+*   Keep your Kali Linux VM updated with the latest security patches.
